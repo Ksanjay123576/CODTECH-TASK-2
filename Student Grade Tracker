@@ -1,0 +1,80 @@
+def calculate_letter_grade(average):
+    """Determine letter grade based on average."""
+    if average >= 90:
+        return 'A'
+    elif average >= 80:
+        return 'B'
+    elif average >= 70:
+        return 'C'
+    elif average >= 60:
+        return 'D'
+    else:
+        return 'F'
+
+def calculate_gpa(average):
+    """Calculate GPA based on average grade."""
+    if average >= 90:
+        return 4.0
+    elif average >= 80:
+        return 3.0
+    elif average >= 70:
+        return 2.0
+    elif average >= 60:
+        return 1.0
+    else:
+        return 0.0
+
+def manage_grades():
+    print("Welcome to the Student Grades Tracker!")
+    grades = {}
+
+    while True:
+        print("\nMenu:")
+        print("1. Add or update a subject grade")
+        print("2. Calculate and display average grade")
+        print("3. Display overall letter grade and GPA")
+        print("4. Exit")
+
+        choice = input("Enter your choice (1/2/3/4): ")
+
+        if choice == '1':
+            subject = input("Enter the subject name: ")
+            try:
+                grade = float(input(f"Enter the grade for {subject} (0-100): "))
+                if 0 <= grade <= 100:
+                    grades[subject] = grade
+                    print(f"Grade for {subject} has been recorded.")
+                else:
+                    print("Please enter a valid grade between 0 and 100.")
+            except ValueError:
+                print("Invalid input. Please enter a numeric value for the grade.")
+
+        elif choice == '2':
+            if grades:
+                average = sum(grades.values()) / len(grades)
+                print(f"\nThe average grade is: {average:.2f}")
+            else:
+                print("No grades available to calculate the average.")
+
+        elif choice == '3':
+            if grades:
+                average = sum(grades.values()) / len(grades)
+                letter_grade = calculate_letter_grade(average)
+                gpa = calculate_gpa(average)
+                print(f"\nOverall Results:")
+                print(f"Average Grade: {average:.2f}")
+                print(f"Letter Grade: {letter_grade}")
+                print(f"GPA: {gpa:.2f}")
+            else:
+                print("No grades available to display overall results.")
+
+        elif choice == '4':
+            print("Exiting the Student Grades Tracker. Goodbye!")
+            break
+
+        else:
+            print("Invalid choice. Please select a valid option.")
+
+# Run the grades management program
+if __name__ == "__main__":
+    manage_grades()
